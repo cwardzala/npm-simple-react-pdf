@@ -13,6 +13,8 @@ export default class SimplePDF extends React.Component {
 
   loadPDF() {
 
+    var _this = this;
+
     // get node for this react component
     var node = ReactDOM.findDOMNode(this).getElementsByClassName("S-PDF-ID")[0];
 
@@ -56,7 +58,8 @@ export default class SimplePDF extends React.Component {
             canvasContext : context,
             viewport      : viewport
           };
-          page.render(renderContext);
+          var renderTask = page.render(renderContext);
+          _this.props.onListenRender({renderTask, pageCount: pdf.numPages, viewport});
         });
       }
     });
@@ -78,5 +81,7 @@ export default class SimplePDF extends React.Component {
     this.loadPDF();
   }
 }
-
+SimplePDF.propTypes = {
+  onListenRender: React.PropTypes.func,
+}
 module.exports = { SimplePDF: SimplePDF };

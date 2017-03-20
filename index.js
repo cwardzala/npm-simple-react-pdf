@@ -33,8 +33,7 @@ var SimplePDF = function (_React$Component) {
     _classCallCheck(this, SimplePDF);
 
     // bind
-
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SimplePDF).call(this, props));
+    var _this = _possibleConstructorReturn(this, (SimplePDF.__proto__ || Object.getPrototypeOf(SimplePDF)).call(this, props));
 
     _this.loadPDF = _this.loadPDF.bind(_this);
     return _this;
@@ -46,9 +45,6 @@ var SimplePDF = function (_React$Component) {
 
       // get node for this react component
       var node = _reactDom2.default.findDOMNode(this).getElementsByClassName("S-PDF-ID")[0];
-
-      // clean for update
-      node.innerHTML = "";
 
       // set styles
       node.style.width = "100%";
@@ -108,7 +104,10 @@ var SimplePDF = function (_React$Component) {
     }
   }, {
     key: 'componentDidUpdate',
-    value: function componentDidUpdate() {
+    value: function componentDidUpdate(newProps) {
+      if (newProps.file === this.props.file) {
+        return;
+      }
       this.loadPDF();
     }
   }]);

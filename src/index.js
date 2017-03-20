@@ -16,9 +16,6 @@ export default class SimplePDF extends React.Component {
     // get node for this react component
     var node = ReactDOM.findDOMNode(this).getElementsByClassName("S-PDF-ID")[0];
 
-    // clean for update
-    node.innerHTML = "";
-
     // set styles
     node.style.width = "100%";
     node.style.height = "100%";
@@ -74,7 +71,10 @@ export default class SimplePDF extends React.Component {
     this.loadPDF();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(newProps) {
+      if (newProps.file === this.props.file) {
+          return;
+      }
     this.loadPDF();
   }
 }
